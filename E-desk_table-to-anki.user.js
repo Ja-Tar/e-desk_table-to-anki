@@ -13,7 +13,7 @@ var headerDiv = document.querySelector('.header-container.mdl-layout__header-row
 
 // Create a button element
 var runBtn = document.createElement('button');
-runBtn.innerHTML = "Exportuj Tabelę";
+runBtn.innerHTML = "Export Table";
 runBtn.style.backgroundColor = "yellow";
 runBtn.style.color = "black";
 runBtn.style.padding = "10px";
