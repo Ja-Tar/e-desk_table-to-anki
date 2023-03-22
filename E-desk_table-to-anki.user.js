@@ -7,7 +7,7 @@
 // @downloadURL  https://github.com/Ja-Tar/e-desk_table-to-anki/raw/main/E-desk_table-to-anki.user.js
 // @match https://edesk.pearson.pl/*
 // @grant none
-// @version 0.1.0
+// @version 0.1.1
 // ==/UserScript==
 
 setTimeout(() => {
