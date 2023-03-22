@@ -1,8 +1,13 @@
 // ==UserScript==
-// @name E-desk_table-to-anki
-// @namespace Violentmonkey Scripts
+// @name Exportuj-Tabele_eDesk->Anki
+// @namespace https://github.com/Ja-Tar/e-desk_table-to-anki
+// @homepageURL  https://github.com/Ja-Tar/e-desk_table-to-anki
+// @supportURL   https://github.com/Ja-Tar/e-desk_table-to-anki/issues
+// @updateURL    https://github.com/Ja-Tar/e-desk_table-to-anki/raw/main/E-desk_table-to-anki.user.js
+// @downloadURL  https://github.com/Ja-Tar/e-desk_table-to-anki/raw/main/E-desk_table-to-anki.user.js
 // @match https://edesk.pearson.pl/*
 // @grant none
+// @version 0.1.0
 // ==/UserScript==
 
 setTimeout(() => {
