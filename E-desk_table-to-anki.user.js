@@ -6,6 +6,7 @@
 // @updateURL    https://github.com/Ja-Tar/e-desk_table-to-anki/raw/main/E-desk_table-to-anki.user.js
 // @downloadURL  https://github.com/Ja-Tar/e-desk_table-to-anki/raw/main/E-desk_table-to-anki.user.js
 // @match https://edesk.pearson.pl/*
+// @icon https://edesk.pearson.pl/favicon.ico
 // @grant none
 // @version 0.1.2
 // ==/UserScript==
