@@ -14,7 +14,7 @@ setTimeout(() => {
 
 const iframeDocument = document.getElementById('content-iframe').contentWindow.document;
 // Find the div with class "header-container mdl-layout__header-row"
-var headerDiv = document.querySelector('.header-container.mdl-layout__header-row');
+var headerDiv = document.querySelector(".right-side-menu-container");
 
 // Create a button element
 var runBtn = document.createElement('button');
