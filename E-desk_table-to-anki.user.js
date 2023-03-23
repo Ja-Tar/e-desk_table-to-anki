@@ -8,7 +8,7 @@
 // @match https://edesk.pearson.pl/*
 // @icon https://edesk.pearson.pl/favicon.ico
 // @grant none
-// @version 0.1.2
+// @version 0.1.3
 // ==/UserScript==
 
 setTimeout(() => {
