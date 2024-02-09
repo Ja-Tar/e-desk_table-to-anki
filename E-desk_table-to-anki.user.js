@@ -8,7 +8,7 @@
 // @match https://edesk.pearson.pl/*
 // @icon https://edesk.pearson.pl/favicon.ico
 // @grant none
-// @version 0.2.0
+// @version 0.2.1
 // ==/UserScript==
 
 setTimeout(() => {
@@ -97,7 +97,7 @@ setTimeout(() => {
       link.click();
     } else if (tabelkainfo === "niemiecki") {
 
-      tabela = iframeDocument.querySelector(".Table_noHeader");
+      tabela = iframeDocument.querySelector(".Table_noHeader[style*='visibility: visible']");
 
       var exportData = "";
 
