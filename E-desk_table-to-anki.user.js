@@ -5,10 +5,10 @@
 // @supportURL   https://github.com/Ja-Tar/e-desk_table-to-anki/issues
 // @updateURL    https://github.com/Ja-Tar/e-desk_table-to-anki/raw/main/E-desk_table-to-anki.user.js
 // @downloadURL  https://github.com/Ja-Tar/e-desk_table-to-anki/raw/main/E-desk_table-to-anki.user.js
-// @match https://edesk.pearson.pl/*
+// @match https://edesk.pearson.pl/lesson/*
 // @icon https://edesk.pearson.pl/favicon.ico
 // @grant none
-// @version 0.2.1
+// @version 0.2.2
 // ==/UserScript==
 
 setTimeout(() => {
