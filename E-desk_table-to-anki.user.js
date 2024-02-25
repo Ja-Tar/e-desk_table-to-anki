@@ -8,7 +8,7 @@
 // @match https://edesk.pearson.pl/lesson/*
 // @icon https://edesk.pearson.pl/favicon.ico
 // @grant none
-// @version 0.2.2
+// @version 0.2.3
 // ==/UserScript==
 
 setTimeout(() => {
@@ -27,7 +27,7 @@ setTimeout(() => {
   try {
     headerDiv.appendChild(runBtn);
   } catch (error) {
-    console.log("Brak paska, czekam...")
+    console.debug("Brak paska, czekam...")
   }
 
   // Add a click event listener to the button
@@ -50,7 +50,7 @@ setTimeout(() => {
         // Przerwij działanie funkcji, gdy tabela nie istnieje
       }
     } catch (error) {
-      console.log("Błąd podczas wyszukiwania tabeli: " + error);
+      console.error("Błąd podczas wyszukiwania tabeli: " + error);
       return; // Przerwij działanie funkcji w przypadku błędu
     }
 
@@ -80,7 +80,7 @@ setTimeout(() => {
       });
 
       // Remove the first row from the row data array
-      rowData.shift();
+      var name = rowData.shift().replace(/\s+/g,"_");;
 
       // Convert the row data to a tab-separated string
       var tableData = rowData.join('\n');
@@ -91,7 +91,7 @@ setTimeout(() => {
       // Create a link element to download the text file
       var link = document.createElement('a');
       link.href = URL.createObjectURL(blob);
-      link.download = 'tabela_do_anki.txt';
+      link.download = name + '_angileski.txt';
 
       // Click the link to download the file
       link.click();
