@@ -8,7 +8,7 @@
 // @match https://edesk.pearson.pl/lesson/*
 // @icon https://edesk.pearson.pl/favicon.ico
 // @grant none
-// @version 0.2.3
+// @version 0.2.4
 // ==/UserScript==
 
 setTimeout(() => {
@@ -72,7 +72,9 @@ setTimeout(() => {
 
         // Loop through the cells and extract the text
         cells.forEach(function (cell) {
-          cellData.push(cell.innerText.trim());
+          // Remove any newlines and extra whitespace
+          cleardata = cell.innerText.replace(/\n/g, " ").replace(/\s+/g, " ");
+          cellData.push(cleardata.innerText.trim());
         });
 
         // Add the cell data to the row data array
@@ -80,7 +82,7 @@ setTimeout(() => {
       });
 
       // Remove the first row from the row data array
-      var name = rowData.shift().replace(/\s+/g,"_");;
+      var name = rowData.shift().replace(/\s+/g, "_");;
 
       // Convert the row data to a tab-separated string
       var tableData = rowData.join('\n');
