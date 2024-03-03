@@ -8,7 +8,7 @@
 // @match https://edesk.pearson.pl/lesson/*
 // @icon https://edesk.pearson.pl/favicon.ico
 // @grant none
-// @version 0.2.4
+// @version 0.2.5
 // ==/UserScript==
 
 setTimeout(() => {
@@ -74,7 +74,7 @@ setTimeout(() => {
         cells.forEach(function (cell) {
           // Remove any newlines and extra whitespace
           cleardata = cell.innerText.replace(/\n/g, " ").replace(/\s+/g, " ");
-          cellData.push(cleardata.innerText.trim());
+          cellData.push(cleardata.trim());
         });
 
         // Add the cell data to the row data array
