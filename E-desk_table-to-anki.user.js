@@ -8,8 +8,24 @@
 // @match https://edesk.pearson.pl/lesson/*
 // @icon https://edesk.pearson.pl/favicon.ico
 // @grant none
-// @version 0.2.5
+// @version 0.3.0
 // ==/UserScript==
+
+// ============================
+// Funkcje
+// ============================
+
+function exportDataToFile(exportData, tabelkainfo, pagename="tabelka") {
+  var blob = new Blob([exportData], { type: 'text/plain' });
+  var link = document.createElement('a');
+  link.href = URL.createObjectURL(blob);
+  link.download = pagename + "_" + tabelkainfo + '.txt';
+  link.click();
+}
+
+// ============================
+// Main
+// ============================
 
 setTimeout(() => {
   // Find the div with class "header-container mdl-layout__header-row"
@@ -38,16 +54,23 @@ setTimeout(() => {
     var addonWrapperDiv;
     try {
       addonWrapperDiv = iframeDocument.querySelector(".Table_noHeader");
-      var tabelkainfo = "niemiecki"
-      if (!addonWrapperDiv) {
+      // sprawdź czy tabela zawiera 2 kolumny
+      if (addonWrapperDiv) {
+        var rows = addonWrapperDiv.querySelectorAll('tr');
+        var cells = rows[0].querySelectorAll('td, th');
+        if (cells.length != 2) {
+          console.log("Tabela nie zawiera 2 kolumn!");
+          var tabelkainfo = "inne"
+        } else {
+          var tabelkainfo = "niemiecki"
+        }
+      } else {
         console.log("Tabela 'niemiecki' nie istnieje!");
         addonWrapperDiv = iframeDocument.querySelector('.table-addon-wrapper');
         var tabelkainfo = "angielski"
         if (!addonWrapperDiv) {
           console.log("Tabela 'angielski' nie istnieje!");
-          return;
         }
-        // Przerwij działanie funkcji, gdy tabela nie istnieje
       }
     } catch (error) {
       console.error("Błąd podczas wyszukiwania tabeli: " + error);
@@ -87,16 +110,8 @@ setTimeout(() => {
       // Convert the row data to a tab-separated string
       var tableData = rowData.join('\n');
 
-      // Create a Blob object with the table data
-      var blob = new Blob([tableData], { type: 'text/plain' });
+      exportDataToFile(tableData, tabelkainfo, name);
 
-      // Create a link element to download the text file
-      var link = document.createElement('a');
-      link.href = URL.createObjectURL(blob);
-      link.download = name + '_angileski.txt';
-
-      // Click the link to download the file
-      link.click();
     } else if (tabelkainfo === "niemiecki") {
 
       tabela = iframeDocument.querySelector(".Table_noHeader[style*='visibility: visible']");
@@ -111,8 +126,8 @@ setTimeout(() => {
         // Pobierz wszystkie komórki w wierszu
         var cells = row.querySelectorAll('td');
 
-        // Jeśli wiersz ma co najmniej dwie komórki (niemieckie słowo i tłumaczenie)
-        if (cells.length >= 2) {
+        // Jeśli wiersz ma dwie komórki (niemieckie słowo i tłumaczenie)
+        if (cells.length = 2) {
           // Pobierz niemieckie słowa i tłumaczenia jako listy
           var niemieckieSłowo = cells[0].innerText.trim().split('\n');
           var polskieTłumaczenie = cells[1].innerText.trim().split('\n');
@@ -131,11 +146,52 @@ setTimeout(() => {
 
       // Jeśli są dane do eksportu, utwórz plik tekstowy i pobierz go
       if (exportData) {
-        var blob = new Blob([exportData], { type: 'text/plain' });
-        var link = document.createElement('a');
-        link.href = URL.createObjectURL(blob);
-        link.download = 'tabela_do_anki_niemiecki.txt';
-        link.click();
+        exportDataToFile(exportData, tabelkainfo);
+      }
+    } else {
+
+      tabela = iframeDocument.querySelector(".Table_noHeader[style*='visibility: visible']");
+
+      var exportData = "";
+
+      // Pobierz wszystkie wiersze z tabeli
+      var rows = tabela.querySelectorAll('tr');
+
+      // Iteruj przez wiersze i wydobywaj dane
+      rows.forEach(function (row) {
+        // Pobierz wszystkie komórki w wierszu
+        var cells = row.querySelectorAll('td');
+
+        // Jeśli wiersz ma co najmniej dwie komórki (niemieckie słowo i tłumaczenie)
+        if (cells.length >= 2) {
+          // Pobierz słowa w tabeli
+          for (let i = 0; i < cells.length; i++) {
+            // Pobierz tekst z komórki
+            var cellText = cells[i].innerText;
+
+            // Usuń znaki nowej linii i nadmiarowe spacje
+            cellText = cellText.replace(/\n/g, " ").replace(/\s+/g, " ");
+
+            // Dodaj tekst z komórki do danych eksportu
+            exportData += cellText;
+
+            // Jeśli to nie jest ostatnia komórka w wierszu, dodaj znak tabulacji
+            if (i < cells.length - 1) {
+              exportData += '\t';
+            }
+            else {
+              exportData += '\n';
+            }
+          }
+        }
+      });
+
+      // Jeśli są dane do eksportu, utwórz plik tekstowy i pobierz go
+      if (exportData) {
+        var pagename = iframeDocument.querySelector('.pagename').innerText;
+
+        // Call the function
+        exportDataToFile(exportData, tabelkainfo, pagename);
       }
     }
   });
